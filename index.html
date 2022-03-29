@@ -4,14 +4,13 @@
     <title>Rock Paper Scissors JS</title>
     <meta charset="utf-8">
     <script>
+      const RPS = ['rock', 'paper', 'scissors'];
 
       function computerPlay() {
-        let rockPaperScissors = ['rock', 'paper', 'scissors'];
-        return rockPaperScissors[Math.floor(Math.random()*rockPaperScissors.length)];
+        return RPS[Math.floor(Math.random()*RPS.length)];
       }
 
       function playRound(playerSelection, computerSelection) {
-        playerSelection = playerSelection.toLowerCase();
 
         if(playerSelection == 'rock') {
           if (computerSelection == 'rock') {
@@ -47,11 +46,18 @@
         let tie = 0
 
         for (let i = 0; i < 5; i++) {
-          let playerSelection = prompt("What is your move?");
+
+          let playerSelection;
+
+          do {
+            playerSelection = prompt("What is your move?").toLowerCase();
+          } while (!["rock", "paper", "scissors"].includes(playerSelection))
+
           let computerSelection = computerPlay();
 
           let roundResult = playRound(playerSelection, computerSelection);
-          console.log(roundResult[1]);
+
+          console.log(`Player:${playerSelection} - Computer: ${computerSelection} - Result: ${roundResult[1]}`);
 
           if (roundResult[0] == 0) {
             loose += 1;
@@ -74,7 +80,7 @@
         }
       }
 
-      console.log(game());
+      game();
 
     </script>
   </head>
